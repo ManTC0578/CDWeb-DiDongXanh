@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<!-- web -->
+	<definition name="master"
+		template="/WEB-INF/views//jsp/client/layout/master.jsp">
+		<put-attribute name="header"
+			value="/WEB-INF/views//jsp/client/layout/header.jsp"></put-attribute>
+		<put-attribute name="hero"
+			value="/WEB-INF/views//jsp/client/layout/hero.jsp"></put-attribute>
+		<put-attribute name="category"
+			value="/WEB-INF/views//jsp/client/layout/category.jsp"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views//jsp/client/layout/body.jsp"></put-attribute>
+		<put-attribute name="baner"
+			value="/WEB-INF/views//jsp/client/layout/baner.jsp"></put-attribute>
+		<put-attribute name="latest"
+			value="/WEB-INF/views//jsp/client/layout/latest.jsp"></put-attribute>
+		<put-attribute name="blog"
+			value="/WEB-INF/views//jsp/client/layout/blog.jsp"></put-attribute>
+		<put-attribute name="footer"
+			value="/WEB-INF/views//jsp/client/layout/footer.jsp"></put-attribute>
+	</definition>
+
+	<definition name="master1"
+		template="/WEB-INF/views//jsp/client/layout/master1.jsp">
+		<put-attribute name="header"
+			value="/WEB-INF/views//jsp/client/layout/header.jsp"></put-attribute>
+		<put-attribute name="hero"
+			value="/WEB-INF/views//jsp/client/layout/hero.jsp"></put-attribute>
+
+		<put-attribute name="body"
+			value="/WEB-INF/views//jsp/client/layout/body.jsp"></put-attribute>
+		<put-attribute name="baner"
+			value="/WEB-INF/views//jsp/client/layout/baner.jsp"></put-attribute>
+		<put-attribute name="footer"
+			value="/WEB-INF/views//jsp/client/layout/footer.jsp"></put-attribute>
+	</definition>
+
+	<definition name="pro-detail-master"
+		template="/WEB-INF/views//jsp/client/layout/product-detail-master.jsp">
+		<put-attribute name="header"
+			value="/WEB-INF/views//jsp/client/layout/header.jsp"></put-attribute>
+
+		<put-attribute name="body"
+			value="/WEB-INF/views//jsp/client/layout/body.jsp"></put-attribute>
+
+		<put-attribute name="footer"
+			value="/WEB-INF/views//jsp/client/layout/footer.jsp"></put-attribute>
+	</definition>
+
+
+	<definition name="home" extends="master">
+		<put-attribute name="body"
+			value="/WEB-INF/views/jsp/client/index.jsp"></put-attribute>
+	</definition>
+
+
+	<definition name="product-lists" extends="master1">
+		<put-attribute name="body"
+			value="/WEB-INF/views/jsp/client/product/product-lists.jsp"></put-attribute>
+	</definition>
+
+	<definition name="product-detail"
+		extends="pro-detail-master">
+		<put-attribute name="body"
+			value="/WEB-INF/views/jsp/client/product-detail/product-detail.jsp"></put-attribute>
+	</definition>
+
+
+	<!-- login -->
+	<definition name="login"
+		template="/WEB-INF/views/jsp/login.jsp">
+	</definition>
+	<!-- /login -->
+
+
+</tiles-definitions>
