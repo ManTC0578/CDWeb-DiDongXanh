@@ -10,9 +10,9 @@
 
 			<c:forEach items="${products }" var="list" varStatus="loop">
 
-				<div class="col-lg-3 col-md-4 col-sm-6 mix oranges ">
+				<div class="col-lg-3 col-md-4 col-sm-6 mix oranges " style="cursor:pointer" onclick="Nav(${list.id})">
 					<div class="featured__item">
-						<a href="<c:url value="/chitiet/${list.id}" />">
+						
 						<div class="featured__item__pic set-bg" data-setbg="<c:url value="${list.img_Main}"/>">
 							<ul class="featured__item__pic__hover">
 								<li><a href="#"><i class="fa fa-heart"></i></a></li>
@@ -20,7 +20,7 @@
 								<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
 							</ul>
 						</div>
-						</a>
+						
 						
 						<div class="featured__item__text">
 							<h6>
@@ -60,4 +60,7 @@
 			$(this).text(numeral($(this).text()).format('0,0') + "VND");
 		})
 	})
+	function Nav(id){
+		window.location="/didongxanh/chitiet/"+id;
+	}
 </script>

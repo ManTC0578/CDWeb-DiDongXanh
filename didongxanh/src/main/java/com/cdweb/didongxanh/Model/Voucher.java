@@ -2,39 +2,39 @@ package com.cdweb.didongxanh.Model;
 
 import java.util.Date;
 
-public class Voucher extends Promotion{
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="voucher")
+
+public class Voucher{
+
+	@Id
+	@GeneratedValue( strategy = GenerationType.AUTO )
+	private int id;
+	private String name;
+	private Date startDate;
+	private Date endDate;
+	private int percentage;
+	private long price;	
+	private int activeFlag;
+	private Date createDate;
+	private Date updateDate;
 	
-	public Voucher(int id, int idProduct, String name, Date startDate, Date endDate, int active_Flag, Date create_Date,
-			Date update_Date) {
-		super(id, idProduct, name, startDate, endDate, active_Flag, create_Date, update_Date);
-		
-	}
 	
-	public Voucher(int id, int idProduct, String name, Date startDate, Date endDate, int active_Flag, Date create_Date,
-			Date update_Date, int id_Product, long price) {
-		super(id, idProduct, name, startDate, endDate, active_Flag, create_Date, update_Date);
-		this.id_Product = id_Product;
-		this.price = price;
+	public Voucher() {
+		super();
 	}
 
-	private int id_Product;
-	private long price;
-	
-	
-	public int getId_Product() {
-		return id_Product;
-	}
-	public void setId_Product(int id_Product) {
-		this.id_Product = id_Product;
-	}
-	public long getPrice() {
-		return price;
-	}
-	public void setPrice(long price) {
-		this.price = price;
-	}
-	
 	
 
 }

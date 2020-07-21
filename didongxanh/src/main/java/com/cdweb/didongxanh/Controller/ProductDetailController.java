@@ -15,11 +15,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.cdweb.didongxanh.Model.Items;
 import com.cdweb.didongxanh.Model.Product;
 import com.cdweb.didongxanh.Model.ProductDetail;
 import com.cdweb.didongxanh.Model.Spec;
+import com.cdweb.didongxanh.Model.Store;
 import com.cdweb.didongxanh.Service.ProductDetailService;
 import com.cdweb.didongxanh.Service.ProductService;
+import com.cdweb.didongxanh.Service.StoreService;
 
 @Controller
 public class ProductDetailController {
@@ -28,72 +31,97 @@ public class ProductDetailController {
 	@Autowired
 	ProductDetailService productDetailService;
 
+	@Autowired
+	StoreService storeService;
+
 	@RequestMapping("/chitiet/{id}")
 	public String productDetail(Model model, @PathVariable(name = "id") int id) {
 		Product product = this.productService.getProductById(id);
+		Items item = product.getItem();
 
 		Set<ProductDetail> productDetails = product.getProductDetails();
 		List<ProductDetail> proDetailList = new ArrayList<>();
 		for (ProductDetail pd : productDetails) {
 			proDetailList.add(pd);
 		}
-		
-        // lay ra ds các capacity của từng ProductDetail	
-		
+
+		// lay ra ds các capacity của từng ProductDetail
+
+		// lay ra ds các capacity của từng spec
 		Set<Spec> specs = new HashSet<>();
 		List<Spec> specLists = new ArrayList<>();
 
 		Set<Spec> got = new HashSet<>();
-		
+
 		for (ProductDetail pd : proDetailList) {
-		
-			
+
 			if (!got.contains(pd.getSpec_proDetail())) {
-				pd.getSpec_proDetail().setGotCapacity(pd.getCapacity());
-				pd.getSpec_proDetail().setGotPriceMin(this.productDetailService.GetLowestPrice(pd.getCapacity(),product.getId()));			
-			
-			specs.add(pd.getSpec_proDetail());
-				
+				pd.getSpec_proDetail().getValByName("Bộ nhớ trong");
+				pd.getSpec_proDetail()
+						.setGotPriceMin(this.productDetailService.GetLowestPrice(pd.getSpec_proDetail().getId()));
+				specs.add(pd.getSpec_proDetail());
+
+				System.out.println(pd.getSpec_proDetail().getGotPriceMin());
 			}
-			
+
 			got.add(pd.getSpec_proDetail());
-		
 
 		}
 
-		// lay capacity nho nhat cua tat ca nhung sp con cua product
-		int lowestCapacity = proDetailList.get(0).getCapacity();
+		// lay spec co capacity nho nhat
+		Spec sp = proDetailList.get(0).getSpec_proDetail();
 		for (int i = 1; i < proDetailList.size(); i++) {
 
-			if ((lowestCapacity) > (proDetailList.get(i).getSpec_proDetail().getGotCapacity())) {
-				lowestCapacity = proDetailList.get(i).getCapacity();
+			if (Integer.parseInt(sp.getGotValue()) > Integer
+					.parseInt(proDetailList.get(i).getSpec_proDetail().getGotValue())) {
+				sp = proDetailList.get(i).getSpec_proDetail();
+
 			}
 		}
 
-		// lay productdetail cua cái câpcity nho nhất
+		// lay productdetail cua cái spec co câpcity nho nhất
 		List<ProductDetail> productDetailLists = new ArrayList<>();
 
 		for (ProductDetail pde : proDetailList) {
-			if (pde.getCapacity() == lowestCapacity ) {
+			if (pde.getSpec_proDetail().getId() == sp.getId()) {
 				productDetailLists.add(pde);
 			}
 
 		}
 
-
 		// sap sep spec
-				for (Spec s : specs) {
-					specLists.add(s);
-				}
+		for (Spec s : specs) {
+			specLists.add(s);
+		}
 
-				sortSpecs(specLists);
-	
+		sortSpecs(specLists);
+
+		System.out.println("idddddddddddddddddddddspec" + sp.getId());
+
 		sortProductDetail(productDetailLists);
-		model.addAttribute("productDetail", productDetailLists);
+
+		int firstIdPD = 0;
+
+		for (ProductDetail pd : productDetailLists) {
+			List<Store> stores = this.storeService.listStore(product.getId(), pd.getId());
+			int state = 0;
+			if (stores.size() != 0) {
+				state = 1;
+
+				pd.setState(state);
+				firstIdPD = pd.getId();
+				break;	
+			}
+
+		}
+
+		System.out.println(firstIdPD);
 		model.addAttribute("productDetailForDisplay", productDetails);
+		model.addAttribute("productDetail", productDetailLists);
 		model.addAttribute("product", product);
 		model.addAttribute("specs", specLists);
-
+		model.addAttribute("firstIdSpec", specLists.get(0).getId());
+		model.addAttribute("firstIdPD", firstIdPD);
 		return "product-detail";
 	}
 
@@ -113,7 +141,7 @@ public class ProductDetailController {
 
 			@Override
 			public int compare(Spec o1, Spec o2) {
-				return o1.getGotCapacity() - o2.getGotCapacity();
+				return Integer.parseInt(o1.getGotValue()) - Integer.parseInt(o2.getGotValue());
 			}
 
 		});

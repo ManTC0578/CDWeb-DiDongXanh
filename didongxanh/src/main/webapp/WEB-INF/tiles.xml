@@ -38,6 +38,19 @@
 			value="/WEB-INF/views//jsp/client/layout/footer.jsp"></put-attribute>
 	</definition>
 
+	<definition name="master-admin"
+		template="/WEB-INF/views/jsp/admin/layout/master.jsp">
+		<put-attribute name="top"
+			value="/WEB-INF/views/jsp/admin/layout/top.jsp"></put-attribute>
+		<put-attribute name="left"
+			value="/WEB-INF/views/jsp/admin/layout/left.jsp"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/jsp/admin/layout/body.jsp"></put-attribute>
+
+	</definition>
+
+
+
 	<definition name="pro-detail-master"
 		template="/WEB-INF/views//jsp/client/layout/product-detail-master.jsp">
 		<put-attribute name="header"
@@ -68,12 +81,26 @@
 			value="/WEB-INF/views/jsp/client/product-detail/product-detail.jsp"></put-attribute>
 	</definition>
 
+	<definition name="shopping-cart" extends="pro-detail-master">
+		<put-attribute name="body"
+			value="/WEB-INF/views/jsp/client/cart/shopping-cart.jsp"></put-attribute>
+	</definition>
 
+	<!-- admin -->
+		<definition name="admin/dashboard" extends="master-admin">
+		<put-attribute name="body"
+			value="/WEB-INF/views/jsp/admin/index.jsp"></put-attribute>
+	</definition>
+	<!-- /admin -->
 	<!-- login -->
 	<definition name="login"
 		template="/WEB-INF/views/jsp/login.jsp">
 	</definition>
 	<!-- /login -->
+	<definition name="access-denied"
+		template="/WEB-INF/views/jsp/admin/error-pages/page_403.jsp">
+	</definition>
+	
 
 
 </tiles-definitions>

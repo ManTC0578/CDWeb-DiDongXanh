@@ -65,9 +65,8 @@
 	<script src="<c:url value="/resources/Client/JS/mixitup.min.js" />"></script>
 	<script src="<c:url value="/resources/Client/JS/owl.carousel.min.js" />"></script>
 	<script src="<c:url value="/resources/Client/JS/main.js" />"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
-
-	<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
 
 

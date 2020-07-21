@@ -10,7 +10,7 @@
 <div class="humberger__menu__overlay"></div>
 <div class="humberger__menu__wrapper">
 	<div class="humberger__menu__logo">
-		<a href="#"><img src="img/logo.png" alt=""></a>
+		<a href="#"><img src="<c:url value="/resources/Client/img/didongxanh-logo.png"/>" alt=""></a>
 	</div>
 	<div class="humberger__menu__cart">
 		<ul>
@@ -108,14 +108,14 @@
 			<div class="col-lg-3">
 				<div class="header__logo">
 					<a href="./index.html"><img
-						src="<c:url value="/resources/Client/img/logo.png"/>" alt=""></a>
+						src="<c:url value="/resources/Client/img/didongxanh-logo.png"/>" alt=""></a>
 				</div>
 			</div>
 			<div class="col-lg-6">
 				<nav class="header__menu">
 					<ul>
-						<li class="active"><a href="./index.html">Home</a></li>
-						<li><a href="./shop-grid.html">Shop</a></li>
+						<li class="active"><a href="<c:url value="/"/>">Home</a></li>
+						<li><a href="<c:url value="/shop"/>">Shop</a></li>
 						<li><a href="#">Pages</a>
 							<ul class="header__menu__dropdown">
 								<li><a href="./shop-details.html">Shop Details</a></li>

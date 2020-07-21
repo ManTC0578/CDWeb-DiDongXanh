@@ -26,18 +26,23 @@ public class Spec{
 	private int activeFlag;
 	private Date createDate;
 	private Date updateDate;
+	
 	@javax.persistence.Transient
-	private int gotCapacity;
+	private String gotValue;
 	
 	@javax.persistence.Transient
 	private BigDecimal gotPriceMin;
-	
 	
 	@OneToMany(mappedBy="spec_specDetail",fetch=FetchType.EAGER)
 	private Set<SpecDetail> specDetails;
 	
 	
-	
+	public String getGotValue() {
+		return gotValue;
+	}
+	public void setGotValue(String gotValue) {
+		this.gotValue = gotValue;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -77,24 +82,19 @@ public class Spec{
 	public void setSpecDetails(Set<SpecDetail> specDetails) {
 		this.specDetails = specDetails;
 	}
-	public int getGotCapacity() {
-		return gotCapacity;
+	
+	
+	
+	
+	@Transient
+	public void getValByName(String name) {		
+		Set<SpecDetail> list = getSpecDetails();
+		for(SpecDetail sd: list) {
+			if(sd.getName().equals(name)){
+				this.gotValue= sd.getValue();
+			}
+		}		
 	}
-	public void setGotCapacity(int gotCapacity) {
-		this.gotCapacity = gotCapacity;
-	}
-	
-	
-	
-//	@Transient
-//	public void getValByName(String name) {		
-//		Set<SpecDetail> list = getSpecDetails();
-//		for(SpecDetail sd: list) {
-//			if(sd.getName().equals(name)){
-//				this.gotValue= sd.getValue();
-//			}
-//		}		
-//	}
 	
 	
 	

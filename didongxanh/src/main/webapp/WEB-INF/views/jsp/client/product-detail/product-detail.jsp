@@ -11,8 +11,40 @@
 	media="all">
 
 <title>Insert title here</title>
+<style>
+a.disable {
+	pointer-events: none !important;
+	cursor: default !important;
+}
+
+button.button-red, a.button-red {
+	background: linear-gradient(#f52f32, #e11b1e);
+	border: solid 1px #e11b1e;
+}
+
+button.big-button, a.big-button, span.big-button strong {
+	margin-top: 10px;
+	color: #fff;
+	font-size: 14px;
+	padding: 8px 5px;
+	line-height: 18px;
+	width: 100%;
+	border-radius: 5px;
+	display: block;
+	text-align: center;
+	cursor: pointer;
+}
+
+.left {
+	
+}
+</style>
 </head>
 <body>
+
+<input id="FirstIdSpec" type="hidden" value="${firstIdSpec }">
+<input id="FirstIdPro" type="hidden" value="${product.id}">
+<input id="firstIdPD" type="hidden" value="${firstIdPD}">
 
 	<!-- Product Details Section Begin -->
 	<section class="product-details spad">
@@ -49,65 +81,25 @@
 
 						<div id="capa" class="linked"
 							style="display: flex; flex-wrap: wrap;">
+
 							<c:forEach items="${specs}" var="spec" varStatus="loopCapa">
 
 
 								<a id="a_${loopCapa.index + 1 }"
-									onclick="ajaxCallCapacity(${product.id },${spec.gotCapacity},${loopCapa.index + 1 })"
+									onclick="ajaxCallCapacity(${product.id },${spec.id},${loopCapa.index + 1 })"
 									style="position: relative; background: #fff; border: 1px solid #ddd; -moz-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .15); -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .15); box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .15); -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; width: calc(( 100%/ 3)- 10px); text-align: center; padding: 5px; margin-right: 10px; margin-bottom: 10px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; color: #d70018; border-radius: 5px; text-decoration: none;"
-									title="${product.name }  ${spec.gotCapacity } GB"> <span>
+									title="${product.name }  ${spec.gotValue } GB"> <span>
 										<i style="color: #000; font-style: italic;">
-											${spec.gotCapacity } GB </i>
+											${spec.gotValue } GB </i>
 								</span> <strong class="priceBtnCapa"
 									style="font-size: 14px; display: block; color: #e10c00; font-weight: 700;">
 										${spec.gotPriceMin}</strong>
 								</a>
 
 							</c:forEach>
-						</div>
-
-
-						<div>
-							<strong style="color: #2f2f2f; font-weight: 500;"><i>Chọn
-									màu để xem giá và chi nhánh có hàng</i></strong>
 
 						</div>
 
-						<div style="margin-top: 2px;">
-							<ul id="priceByColor"
-								style="margin-top: 0; padding-left: 20px; display: block; list-style: none;"
-								class="col-md-12">
-								<c:forEach items="${productDetail}" var="c" varStatus="loopPD">
-
-									<input id="id_proDetail_${loopPD.index}" type="hidden"
-										name="cc">
-
-
-									<li class="col-md-4" id="li_color_${loopPD.index}"
-										style="margin-right: 2px; margin-bottom: 5px; display: inline-block; padding-left: 5px; border-radius: 5px; width: 150px; background-color: rgba(238, 238, 238, .25);">
-
-										<a
-										onclick="ajaxCallImgByColor(${loopPD.index},${product.id },${loopPD.index})"
-										id="a_color_${loopPD.index}"
-										style="color: #d70018; text-decoration: none;"
-										data-toggle="tooltip" title="${c.color_proDetail.name }">
-											<label
-											style="color: #000; position: relative; cursor: pointer; opacity: 1; max-width: 100%;">
-												<span id="pd_detail_title_${loopPD.index}"
-												style="color: #000; float: left; width: 100%;">${c.color_proDetail.name }</span>
-												<span id="pd_detail_price_${loopPD.index}"
-												class="priceByColor" style="color: #d70018;">${c.price}</span>
-										</label>
-									</a>
-									</li>
-
-								</c:forEach>
-
-
-
-							</ul>
-
-						</div>
 						<div>
 							<aside class="promotion_wrapper"
 								style="display: block; border: #e11b1e solid 1px; border-radius: 4px; padding: 10px 0 0; position: relative; overflow: visible; margin: 20px 0; float: left; width: 100%;">
@@ -144,54 +136,97 @@
 								</div>
 							</aside>
 						</div>
+						<div>
+							<strong style="color: #2f2f2f; font-weight: 500;"><i>Chọn
+									màu để xem giá và chi nhánh có hàng</i></strong>
 
+						</div>
+
+						<div style="margin-top: 2px;">
+							<ul id="priceByColor"
+								style="margin-top: 0; padding-left: 20px; display: block; list-style: none;"
+								class="col-md-12">
+								<c:forEach items="${productDetail}" var="c" varStatus="loopPD">
+
+									<input id="id_proDetail_${loopPD.index}" type="hidden"
+										name="cc">
+
+
+									<li class="col-md-4" id="li_color_${loopPD.index}"
+										style="margin-right: 2px; margin-bottom: 5px; display: inline-block; padding-left: 5px; border-radius: 5px; width: 150px; background-color: rgba(238, 238, 238, .25);">
+
+										<a
+										onclick="ajaxCallImgByColor(${loopPD.index},${product.id },${loopPD.index})"
+										id="a_color_${loopPD.index}"
+										style="color: #d70018; text-decoration: none;"
+										data-toggle="tooltip" title="${c.color_proDetail.name }">
+											<label
+											style="color: #000; position: relative; cursor: pointer; opacity: 1; max-width: 100%;">
+												<span id="pd_detail_title_${loopPD.index}"
+												style="color: #000; float: left; width: 100%;">${c.color_proDetail.name }</span>
+												<span id="pd_detail_price_${loopPD.index}"
+												class="priceByColor" style="color: #d70018;">${c.price}</span>
+										</label>
+									</a>
+									</li>
+
+								</c:forEach>
+
+							</ul>
+							<input id="idProductDetail" type="hidden">
+						</div>
+
+
+						<div>
+							<p class="ecommerce-note"
+								style="font-size: 13px; font-weight: 700; cursor: pointer; color: #eb0000; position: relative; padding: 0 0 0 40px; margin: 0; border-radius: 2px; display: block; width: 100%; float: left;">
+								<a href="/huong-dan-mua-hang-online"
+									style="text-decoration: none; color: #555; font-style: italic;"><strong>Thanh
+										toán online</strong></a> | <a href="/chinh-sach-giao-hang"
+									style="text-decoration: none; color: #555; font-style: italic;"><span>
+										Miễn phí giao hàng thu tiền</span></a>
+							</p>
+
+							<a class="" onclick="addToCart()"
+								style="background: linear-gradient(#f52f32, #e11b1e); border: solid 1px #e11b1e; margin-top: 10px; color: #fff; font-size: 14px; padding: 8px 5px; line-height: 18px; width: 100%; border-radius: 5px; text-align: center; cursor: pointer;">
+								<strong>MUA NGAY</strong>
+							</a>
+						</div>
 					</div>
 				</div>
 				<!-- hien thi chi nhánh -->
 				<div class="col-lg-3 col-md-3">
-					<div style="line-height: 30px;">
-						<strong
+					<div id="div_store" style="line-height: 30px; ">
+						<strong id="totalStore"
 							style="display: block; width: 100%; font-weight: 600; background-color: #f7f7f7; float: left; text-align: center; text-transform: uppercase; border: 1px #eee solid; line-height: 40px; color: #3c3d41;">
-							Hiện 1 cửa hàng có sẵn sản phẩm </strong> <strong
-							style="font-weight: 600;"> Cửa hàng còn hàng (Bấm xem
-							dẫn đường):</strong>
+							Hiện 1 cửa hàng có sẵn sản phẩm </strong> <strong id="storeConHang"
+							style="font-weight: 600;"> Cửa hàng còn hàng</strong>
 
 
-					<ul id="store" class="cpsscroll"
-						style="display: block; width: 100%; float: left; border-top: none; list-style: none; border-bottom: none; margin-top: 10px; background: #f7f7f7;">
+						<ul id="store" class="cpsscroll"
+							style="display: block; width: 100%; float: left; border-top: none; list-style: none; border-bottom: none; margin-top: 10px; background: #f7f7f7;">
 
-						
 
-					</ul>
+
+						</ul>
 					</div>
 
 
 					<div class="lt-table-box technical-info" id="id_16522"
 						style="margin-top: 0px;">
 						<div class="header">
-							<h2
-								style="font-size: 15px; font-weight: bold; line-height: 100px;">Thông
+							<h2 id="h2_spec"
+								style="font-size: 15px;font-weight: bold; line-height: 100px;">Thông
 								số kỹ thuật</h2>
 						</div>
 						<div class="content" style="padding: 10px;">
 							<table id="tskt"
-								style="border: 0; border-spacing: 0; empty-cells: show; font-size: 100%;display: table;border-collapse: collapse;">
+								style="border: 0; border-spacing: 0; empty-cells: show; font-size: 100%; display: table; border-collapse: collapse;">
 
 								<tbody style="vertical-align: middle; border-color: inherit;">
-									<tr
+									<tr id="tr_spec"
 										style="height: 35px; vertical-align: inherit; border-color: inherit;">
-										<c:forEach items="${productDetail}" var="pro" begin="0" end="0">
-											<c:forEach items="${pro.spec_proDetail.specDetails }" var="s">
-												<td
-													style="display: table-row; width: 100px; font-weight: 400; border-bottom: solid 1px #eee; vertical-align: middle;">${s.name }</td>
-												<td
-													style="display: table-row;font-weight: 700; width: 100px; border-bottom: solid 1px #eee; vertical-align: middle;">${s.value }</td>
-
-
-											</c:forEach>
-
-										</c:forEach>
-
+										
 
 									</tr>
 
@@ -358,28 +393,69 @@
 </body>
 
 <script>
+var firstIdSpec = document.getElementById("FirstIdSpec");
+var firstIdPro = document.getElementById("FirstIdPro");
+var firstIdPD = document.getElementById("firstIdPD");
 $(document).ready(function(){
+	
+	console.log("dfsddfsdfsd");
 	 $('.priceBtnCapa').each(function(){
 		 $(this).text(numeral($(this).text()).format('0,0')+" VND");
 	 });
 	 $('.priceByColor').each(function(){
 		 $(this).text(numeral($(this).text()).format('0,0')+" VND");
 	 });
+	 
+	
+	 
+	 console.log("spec"+firstIdSpec.value);
+	 console.log("ippro"+firstIdPro.value);
+	 console.log(firstIdPD.value);
+	 
+	 var isFirstDisplay = true;
+	 ajaxCallCapacity(firstIdPro.value,firstIdSpec.value,1,isFirstDisplay);	 
+	
+	 
 });
 
+function addToCart(){
+	 var idProductDetail = document.getElementById("idProductDetail");
+	console.log("add to cart"+idProductDetail.value);
+	
+	if(idProductDetail.value){
+		
+		$.ajax({
+	        type: "GET",
+	        url : "/didongxanh/API/addToCart/"+idProductDetail.value,
+	        success: function(res){
+	        	
+	        	if(res == "successed"){
+	        		
+					window.location = "http://localhost:8080/didongxanh/shopping-cart";	
+	        	}
+	        	else{
+	        		console.log("false");
+	        	}
+	        	
+	        }
+	   });
+		
+	}
+	
+};
 
-
-function ajaxCallImgByColor(id,productId,btnColorId){
+function ajaxCallImgByColor(id,productId,btnColorId,isFirstDisplay){
 	
 	console.log("id is"+id);
 	var idProDetail = document.getElementById("id_proDetail_"+id);
 	idPD = idProDetail.value;
+	console.log("id pro is"+productId);
 	
 	
 	 var priceByColor = document.getElementById("priceByColor");
 	 var li = priceByColor.querySelectorAll("li");
 	    for(var i=0;i<li.length;i++){
-	    	li[i].style.border = " 1px solid #ddd";
+	    	li[i].style.border = "solid 1px rgb(18, 17, 17)";
 	    } 
 	
 	$.ajax({
@@ -388,6 +464,7 @@ function ajaxCallImgByColor(id,productId,btnColorId){
        
         success: function(res){
         	
+        	console.log(res);
         	var btnColor = document.getElementById("li_color_"+btnColorId);
         	btnColor.style.border="solid 1px #e11b1e";
         	
@@ -405,15 +482,53 @@ function ajaxCallImgByColor(id,productId,btnColorId){
         	
         	 $('.priceee').each(function(){
         		 $(this).text(numeral(res.price).format('0,0')+" VND");
-        		 
+        		
         	 }) 
-         
-        	ajaxGetStore(productId,idPD);	
+        	
+        	 var trSpec = document.getElementById("tr_spec");
+        	 trSpec.innerHTML= "";
+        	 
+        	
+        	 for(var i=0;i<res.spec_proDetail["specDetails"].length;i++){
+        		 const spec = (res || {}).spec_proDetail.specDetails || null; 
+        		 
+        		 if(spec != null){
+        			 var name = document.createElement("td");
+        			 var value = document.createElement("td");
+        		
+            		 var textName = document.createTextNode(res.spec_proDetail.specDetails[i].name);
+            		 var textValue = document.createTextNode(res.spec_proDetail.specDetails[i].value);
+            		 
+            		 name.appendChild(textName);
+            		 value.appendChild(textValue);        		 
+            		 
+            		 trSpec.appendChild(name);
+            		 trSpec.appendChild(value);
+            		 
+        			
+        			 
+        			 console.log("testssssssssss"+res.spec_proDetail.specDetails[i].name);
+        		 }
+        		
+        		 
+        	 }
+        	 
+        	 var td = trSpec.querySelectorAll("td");
+        	 for (var i = 0; i < td.length; i++) {
+        		    td[i].style.backgroundColor = "transparent";
+        		    td[i].style.display  = "table-row";
+             }
+         if(!isFirstDisplay){
+        	 ajaxGetStore(productId,idPD);	 
+         }
+         if(isFirstDisplay){
+        	 ajaxGetStore(firstIdPro.value,firstIdPD.value);	 
+         }
+         	
         }
    });
 		
 };
-
 
 
 function ajaxGetStore(idProduct,idProduct_Detail){
@@ -429,10 +544,12 @@ function ajaxGetStore(idProduct,idProduct_Detail){
         	ProDetailId : idProduct_Detail
         },
         success: function(res){
+        	
         	console.log(res);
         
-        	
+        	var count = 0;
         	 for(var i =0;i<res.length;i++){
+        		 count++;
         		 var address = document.createElement("LI");
         		 var a = document.createElement("a");
         		 
@@ -443,7 +560,29 @@ function ajaxGetStore(idProduct,idProduct_Detail){
         		 
         		 store.appendChild(address);
         	 }
-        	
+        	 
+        	 //set trang thai cua cua hang
+        	 var divStore = document.getElementById("div_store");
+        	 var h2Spec = document.getElementById("h2_spec");
+        	 
+        	 divStore.style.display="block";
+        	 h2Spec.style.display="block";
+        	 
+        	 var setTotalStore = document.getElementById("totalStore");
+        	 if(count == 0){
+        		 
+        		 var storeConHang = document.getElementById("storeConHang");
+        		 storeConHang.style.display  = "none";
+        		 setTotalStore.innerHTML = "Không còn cửa hàng nào còn sản phẩm này.";
+        		
+        	 }
+        	 else{
+        		 var idProductDetail = document.getElementById("idProductDetail");
+        		 idProductDetail.value = idProduct_Detail;
+        		 console.log("IPD is: "+idProductDetail.value);
+        		 setTotalStore.innerHTML = "Hiện còn "+count+" cửa hàng còn sản phẩm này.";	 
+        	 }
+        	     	
         	 var li = store.querySelectorAll("li");
         	 for (var i = 0; i < li.length; i++) {
         		    li[i].style.backgroundColor = "transparent";
@@ -451,13 +590,11 @@ function ajaxGetStore(idProduct,idProduct_Detail){
              }
         }
    });
-	
-	
-	
-	
 };
-function ajaxCallCapacity(id_pro,capacity,id_a){
+
+function ajaxCallCapacity(id_pro,id_spec,id_a,isFirstDisplay){
 	
+	console.log(id_a);
     var store = document.getElementById("capa");
     var a = store.querySelectorAll("a");
     for(var i=0;i<a.length;i++){
@@ -469,7 +606,7 @@ function ajaxCallCapacity(id_pro,capacity,id_a){
         url : "/didongxanh/API/getProduct",
         data : {
         	product_id: id_pro,
-        	capacity: capacity
+        	spec_id: id_spec
         },
       
         success: function(res){
@@ -478,6 +615,26 @@ function ajaxCallCapacity(id_pro,capacity,id_a){
         	   btnCapa.style.border="solid 1px #e11b1e";
       
                 console.log(res);
+                
+                 var numberOfColors = res.length;
+                             
+                 var priceByColor = document.getElementById("priceByColor");
+            	 var li = priceByColor.querySelectorAll("li");
+            	    for(var i=0;i<li.length;i++){
+            	    	li[i].style.display="none";
+            	    } 
+                 
+       	    	 for(var i=0; i<numberOfColors;i++){
+       		     	 var li_id = "li_color_"+i;
+       		     	 console.log(li_id);
+       			    document.getElementById(li_id).style.display="inline-block";
+       			 
+       	 
+       	     	 }
+       	    	 
+       	    	
+               
+       	    	 
                 for(var i =0;i<res.length;i++){
                 	var title = document.getElementById("pd_detail_title_"+i);
                 	var price = document.getElementById("pd_detail_price_"+i);
@@ -486,36 +643,65 @@ function ajaxCallCapacity(id_pro,capacity,id_a){
                 	idProDetail.value = res[i].id;
                 	console.log("idddddd"+idProDetail.value);
                 
-                	var a_color = document.getElementById("a_color_"+i);
+                	var id_a_color = "a_color_"+i;
+                	var li_color = "li_color_"+i;
+                	document.getElementById(li_color).style.border="solid 1px rgb(18, 17, 17)";
+                	
+                	var a_color = document.getElementById(id_a_color);
                 	
                 	title.innerHTML=res[i].color_proDetail["name"];
-                	//price.innerHTML=res[i].price + " VND";
                 	
+                	console.log("color is:"+res[i].color_proDetail["name"]);
+                	
+                          	
                 	 $('.priceByColor').each(function(){
                 		 $(this).text(numeral(res[i].price).format('0,0')+" VND");
                 		 
+         
                 	 }) 
                 	              
                 	a_color.setAttribute("title",res[i].color_proDetail["name"]);
                 	               	               	
                 	if(res[i].state == 0){
                 		
-                		document.getElementById("a_color_"+i).style.cursor="not-allowed";
-                		document.getElementById("a_color_"+i).style.opacity ="0.5";
-                		document.getElementById("li_color_"+i).style.background="#eee";
-                		document.getElementById("li_color_"+i).style.border="solid 1px #eee";
+                		
+                		document.getElementById(id_a_color).style.cursor="not-allowed";
+                		document.getElementById(id_a_color).disabled=true;
+                		//document.getElementById(id_a_color).className="disable";
+                		document.getElementById(id_a_color).style.opacity ="0.3";
+                		document.getElementById(id_a_color).style.background="#eee";
+                		document.getElementById(id_a_color).style.border="solid 1px #eee";
+                		//var li_color = "li_color_"+i;
+                    	document.getElementById(li_color).style.border="solid 1px #eee";
                 		a_color.setAttribute("title","Tạm hết hàng");               		
                 	}
                 	
                 	else{
-                		document.getElementById("a_color_"+i).style.cursor="pointer";
-                		document.getElementById("a_color_"+i).style.opacity ="1";
-                		document.getElementById("li_color_"+i).style.backgroundColor="rgba(238, 238, 238, .25)";
+                		document.getElementById(id_a_color).style.cursor="pointer";
+                		document.getElementById(id_a_color).style.opacity ="1";
+                		document.getElementById(id_a_color).style.backgroundColor="rgba(238, 238, 238, .25)";
                 		//document.getElementById("li_color_"+i).style.border="solid 1px #e11b1e"
                 	}
-                	  
+                	
+                	
                 	
               }
+                for(var k=0;k<res.length;k++){
+                  	 if(isFirstDisplay){
+                   		if(res[k].state == 1){
+                   			
+                   			console.log("isFirstDisplay");
+                   			console.log("index i"+k);
+                   			ajaxCallImgByColor(k,firstIdPro,k,isFirstDisplay);
+                   			break;
+                   		}
+                   		    	 
+                      }  
+                  }
+               
+                
+               
+             
         }
    });
 	

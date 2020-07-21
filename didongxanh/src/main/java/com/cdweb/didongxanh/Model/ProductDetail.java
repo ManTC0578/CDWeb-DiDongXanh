@@ -32,7 +32,7 @@ public class ProductDetail {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "color_id")
 	private Color color_proDetail;
-	private int capacity;
+	
 
 	private BigDecimal price;
 	private String img_url;
@@ -67,21 +67,22 @@ public class ProductDetail {
 		this.state=state;
 	}
 
-	public ProductDetail(Integer id, Color color_proDetail, BigDecimal price, String img_url, int activeFlag,
-			Date createDate, Date updateDate) {
+	
+	
+	
+
+	public ProductDetail(Integer id, Spec spec_proDetail, Color color_proDetail, BigDecimal price, String img_url,
+			int activeFlag, Date createDate, Date updateDate) {
 		super();
 		this.id = id;
+		this.spec_proDetail = spec_proDetail;
 		this.color_proDetail = color_proDetail;
 		this.price = price;
 		this.img_url = img_url;
 		this.activeFlag = activeFlag;
 		this.createDate = createDate;
 		this.updateDate = updateDate;
-		
 	}
-
-	
-	
 
 	public int getState() {
 		return state;
@@ -107,13 +108,7 @@ public class ProductDetail {
 		this.id = id;
 	}
 
-	public int getCapacity() {
-		return capacity;
-	}
-
-	public void setCapacity(int capacity) {
-		this.capacity = capacity;
-	}
+	
 
 	public Set<StoreListItems> getStoreListItems_ProDetail() {
 		return storeListItems_ProDetail;

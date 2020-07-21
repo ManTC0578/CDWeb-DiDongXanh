@@ -1,4 +1,10 @@
 eclipse.preferences.version=1
+encoding//src/main/java/com/cdweb/didongxanh/API/RestCartController.java=UTF-8
+encoding//src/main/java/com/cdweb/didongxanh/Controller/CartController.java=UTF-8
 encoding//src/main/java/com/cdweb/didongxanh/Controller/ProductDetailController.java=UTF-8
 encoding//src/main/java/com/cdweb/didongxanh/Impl/ProductDAOImpl.java=UTF-8
+encoding//src/main/webapp/WEB-INF/views/jsp/admin/layout/left.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/jsp/admin/layout/master.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/jsp/client/cart/shopping-cart.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/jsp/client/layout/headerShop.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/jsp/client/product-detail/product-detail.jsp=UTF-8

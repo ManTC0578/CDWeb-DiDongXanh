@@ -26,10 +26,10 @@ public class ProductDetailDAOImpl extends BaseDAOImpl<ProductDetail> implements 
 	SessionFactory sessionFactory;
 
 	@Override
-	public BigDecimal GetLowestPrice(int Capacity, int product_id) {
-		String sql = "select MIN(pd.price) from product_detail pd  WHERE pd.product_proDetail.id = :Pid and pd.capacity > 0 and pd.capacity = :Cid";
+	public BigDecimal GetLowestPrice(int specId) {
+		String sql = "select MIN(pd.price) from product_detail pd WHERE pd.spec_proDetail.id= :id";
 		//Query<In> que = sessionFactory.getCurrentSession().createQuery(sql1, Store.class).Re;
-		BigDecimal pri = this.sessionFactory.getCurrentSession().createQuery(sql, BigDecimal.class).setParameter("Pid", product_id).setParameter("Cid", Capacity).getSingleResult();
+		BigDecimal pri = this.sessionFactory.getCurrentSession().createQuery(sql, BigDecimal.class).setParameter("id", specId).getSingleResult();
 		
 		return pri;
 	}

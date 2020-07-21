@@ -1,29 +1,21 @@
 package com.cdweb.didongxanh.Model;
 
 import java.util.Date;
+import java.util.Set;
 
-public class Discount extends Promotion {
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
-	public Discount(int id, int idProduct, String name, Date startDate, Date endDate, int active_Flag, Date create_Date,
-			Date update_Date) {
-		super(id, idProduct, name, startDate, endDate, active_Flag, create_Date, update_Date);
-		// TODO Auto-generated constructor stub
-	}
 
-	public Discount(int id, int idProduct, String name, Date startDate, Date endDate, int active_Flag, Date create_Date,
-			Date update_Date, long price) {
-		super(id, idProduct, name, startDate, endDate, active_Flag, create_Date, update_Date);
-		this.price = price;
-	}
+public class Discount{
 
-	private long price;
 
-	public long getPrice() {
-		return price;
-	}
-
-	public void setPrice(long price) {
-		this.price = price;
-	}
-
+	
 }

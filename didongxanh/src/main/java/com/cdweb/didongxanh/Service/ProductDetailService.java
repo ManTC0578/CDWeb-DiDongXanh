@@ -52,8 +52,8 @@ public class ProductDetailService {
 		return this.ProductDetailDAO.findById(ProductDetail.class, id);
 	}
 	
-	public BigDecimal GetLowestPrice(int Capacity, int product_id) {
-		return this.ProductDetailDAO.GetLowestPrice(Capacity,product_id);
+	public BigDecimal GetLowestPrice(int specId) {
+		return this.ProductDetailDAO.GetLowestPrice(specId);
 	}
 	
 	

@@ -25,6 +25,12 @@ public class SpecDetail {
 	private int activeFlag;
 	private Date createDate;
 	private Date updateDate;
+	
+	
+	public SpecDetail() {
+		super();
+	}
+	
 	public Integer getId() {
 		return id;
 	}
